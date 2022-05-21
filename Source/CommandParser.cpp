@@ -1,0 +1,98 @@
+/*
+  ==============================================================================
+
+    CommandParser.cpp
+    Created: 4 May 2022 2:23:37pm
+    Author:  Sten
+
+  ==============================================================================
+*/
+
+#include "CommandParser.h"
+
+CommandParser::CommandParser() {
+    
+}
+
+void CommandParser::loadDSP(SubDSP *dsp) {
+    this->dsp = dsp;
+}
+void CommandParser::parseCommandLine(juce::Label *inputText, juce::Label *outputText) {
+    String input = inputText->getText();
+    String inputArr[5];
+    String word = "";
+    String output;
+    int counter = 0;
+    for(auto x : input) {
+        if(x == ' ' || x == ';') {
+            inputArr[counter] = word;
+            word = "";
+            counter++;
+        }
+        else {
+            word = word + x;
+        }
+    }
+    if(inputArr[0] == "setfilter") {
+        //===============================================================================
+        //setfilter [channelNumber] [filterNumber] [frequency] [filterType];
+        //===============================================================================
+        int channelNumber = atoi(inputArr[1].toStdString().c_str());
+        int filterNumber = atoi(inputArr[2].toStdString().c_str());
+        int freq = atoi(inputArr[3].toStdString().c_str());
+        
+        if(inputArr[4] == "lp") {
+            dsp->setLowPassFilter(channelNumber, filterNumber, freq);
+        }
+        else if(inputArr[4] == "hp") {
+            dsp->setHighPassFilter(channelNumber, filterNumber, freq);
+        }
+        
+        output = "Filter ";
+        output += filterNumber;
+        output += " [";
+        output += inputArr[4];
+        output += " ";
+        output += freq;
+        output += " Hz] wurde auf Kanal ";
+        output += channelNumber;
+        output += " gesetzt!";
+    }
+    else if(inputArr[0] == "removefilter") {
+        //===============================================================================
+        //removefilter [channelNumber] [gain];
+        //===============================================================================
+        int channelNumber = atoi(inputArr[1].toStdString().c_str());
+        int filterNumber = atoi(inputArr[2].toStdString().c_str());
+        
+        dsp->removeFilter(channelNumber, filterNumber);
+        //filterAssignments[channelNumber][filterNumber] = 0;
+        
+        output = "Filter ";
+        output += filterNumber;
+        output += " auf Kanal ";
+        output += channelNumber;
+        output += " wurde entfernt!";
+    }
+    else if(inputArr[0] == "setgain") {
+        //===============================================================================
+        //setgain [channelNumber] [gain];
+        //===============================================================================
+        int channelNumber = atoi(inputArr[1].toStdString().c_str());
+        int gain = atoi(inputArr[2].toStdString().c_str());
+        //gainAssignments[channelNumber] = gain;
+        dsp->setGain(channelNumber, gain);
+        
+        output = "Gain Kanal ";
+        output += channelNumber;
+        output += " wurde auf ";
+        output += gain;
+        output += " gesetzt!";
+    }
+    else {
+        output = "Unbekannter Befehl!";
+    }
+    inputText->setText("", juce::dontSendNotification);
+    outputText->setText(output, juce::dontSendNotification);
+    //outputText.setText(inputArr[1], juce::dontSendNotification);
+}
