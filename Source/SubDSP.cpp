@@ -23,12 +23,27 @@ void SubDSP::setLowPassFilter(int channelNumber, int filterNumber, int freq) {
     filterBank[filterNumber].coefficients = juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, freq);
     filterAssignments[channelNumber][filterNumber] = 1;
 }
+void SubDSP::setSteepLowPassFilter(int channelNumber, int filterNumber, int freq) {
+    for(int i = 0; i < 6; i++) {
+        steepFilterBank[filterNumber][i].coefficients = juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, freq);
+    }
+    steepFilterAssignments[channelNumber][filterNumber] = 1;
+}
 void SubDSP::setHighPassFilter(int channelNumber, int filterNumber, int freq) {
     filterBank[filterNumber].coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sampleRate, freq);
     filterAssignments[channelNumber][filterNumber] = 1;
 }
+void SubDSP::setSteepHighPassFilter(int channelNumber, int filterNumber, int freq) {
+    for(int i = 0; i < 6; i++) {
+        steepFilterBank[filterNumber][i].coefficients = juce::dsp::IIR::Coefficients<float>::makeHighPass(sampleRate, freq);
+    }
+    steepFilterAssignments[channelNumber][filterNumber] = 1;
+}
 void SubDSP::removeFilter(int channelNumber, int filterNumber) {
     filterAssignments[channelNumber][filterNumber] = 0;
+}
+void SubDSP::removeSteepFilter(int channelNumber, int filterNumber) {
+    steepFilterAssignments[channelNumber][filterNumber] = 0;
 }
 void SubDSP::setGain(int channelNumber, int gain) {
     gainAssignments[channelNumber] = gain;
@@ -49,10 +64,20 @@ void SubDSP::process() {
             if(filterAssignments[0][filterNum] == 1) {
                 outBufferL[sample] = filterBank[filterNum].processSample(outBufferL[sample]);
             }
-        }
-        for(int filterNum = 0; filterNum < 16; filterNum++) {
             if(filterAssignments[1][filterNum] == 1) {
                 outBufferR[sample] = filterBank[filterNum].processSample(outBufferR[sample]);
+            }
+        }
+        for(int filterNum = 0; filterNum < 4; filterNum++) {
+            if(steepFilterAssignments[0][filterNum] == 1) {
+                for(int i = 0; i < 6; i++) {
+                    outBufferL[sample] = steepFilterBank[filterNum][i].processSample(outBufferL[sample]);
+                }
+            }
+            if(steepFilterAssignments[1][filterNum] == 1) {
+                for(int i = 0; i < 6; i++) {
+                    outBufferR[sample] = steepFilterBank[filterNum][i].processSample(outBufferR[sample]);
+                }
             }
         }
         

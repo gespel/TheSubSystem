@@ -21,8 +21,6 @@ MainComponent::MainComponent()
     enter.setColour(juce::Label::backgroundColourId, juce::Colours::darkblue);
     enter.onClick = [this] {
         cmdp.parseCommandLine(&inputText, &outputText);
-        //c.parseCommandLine(&inputText, &outputText);
-        //parseCommands();
     };
 
     
