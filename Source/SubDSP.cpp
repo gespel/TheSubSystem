@@ -11,7 +11,10 @@
 #include "SubDSP.h"
 
 SubDSP::SubDSP() {
-    
+    std::vector<const float*> left;
+    std::vector<const float*> right;
+    this->routingtable.push_back(left);
+    this->routingtable.push_back(right);
 }
 
 void SubDSP::loadNextAudioBuffer(const juce::AudioSourceChannelInfo* bufferToFill, double sampleRate) {
@@ -48,19 +51,22 @@ void SubDSP::removeSteepFilter(int channelNumber, int filterNumber) {
 void SubDSP::setGain(int channelNumber, int gain) {
     gainAssignments[channelNumber] = gain;
 }
+void SubDSP::route(int inputChannel, int outputChannel) {
+    this->routingtable[outputChannel].push_back(currBuffer->buffer->getReadPointer(inputChannel, currBuffer->startSample));
+}
 
 void SubDSP::process() {
-    auto* inBufferL = currBuffer->buffer->getReadPointer(0, currBuffer->startSample);
-    auto* inBufferR = currBuffer->buffer->getReadPointer(1, currBuffer->startSample);
-    auto* outBufferL = currBuffer->buffer->getWritePointer(0, currBuffer->startSample);
-    auto* outBufferR = currBuffer->buffer->getWritePointer(1, currBuffer->startSample);
-    for(int sample = 0; sample < currBuffer->numSamples; sample++) {
+    for (int sample = 0; sample < currBuffer->numSamples; sample++) {
         //======================= Input Routing =======================
-        outBufferL[sample] = (inBufferL[sample] + inBufferR[sample])/2;
-        outBufferR[sample] = (inBufferR[sample] + inBufferL[sample])/2;
-        
+        for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
+            auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
+            std::vector<const float*> x = routingtable[i];
+            //for (int j = 0; j < x.size(); j++) {
+            //    outBuffer[sample] += x[j][sample];
+            //}
+        }
         //======================= Filter Section =======================
-        for(int filterNum = 0; filterNum < 16; filterNum++) {
+        /*for (int filterNum = 0; filterNum < 16; filterNum++) {
             if(filterAssignments[0][filterNum] == 1) {
                 outBufferL[sample] = filterBank[filterNum].processSample(outBufferL[sample]);
             }
@@ -79,10 +85,10 @@ void SubDSP::process() {
                     outBufferR[sample] = steepFilterBank[filterNum][i].processSample(outBufferR[sample]);
                 }
             }
-        }
-        
+        }*/
+
         //======================= Gain Section =======================
-        outBufferL[sample] *= (float)gainAssignments[0];
-        outBufferR[sample] *= (float)gainAssignments[1];
+        //outBufferL[sample] *= (float)gainAssignments[0];
+        //outBufferR[sample] *= (float)gainAssignments[1];
     }
 }

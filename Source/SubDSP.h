@@ -24,6 +24,7 @@ public:
     void removeFilter(int channelNumber, int filterNumber);
     void removeSteepFilter(int channelNumber, int filterNumber);
     void setGain(int channelNumber, int gain);
+    void route(int inputChannel, int outputChannel);
 private:
     const juce::AudioSourceChannelInfo* currBuffer;
     juce::dsp::IIR::Filter<float> filterBank[16];

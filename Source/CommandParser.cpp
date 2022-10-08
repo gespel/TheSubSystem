@@ -68,7 +68,21 @@ void CommandParser::parseCommandLine(juce::Label *inputText, juce::Label *output
         outputHeader = "Erfolgreich!";	
     }
     else if (inputArr[0] == "route") {
+        //===============================================================================
+        //rout [inputChannel] [outputChannel];
+        //===============================================================================
+        int in = atoi(inputArr[1].toStdString().c_str());
+        int out = atoi(inputArr[2].toStdString().c_str());
 
+        dsp->route(in, out);
+        
+
+        output = "Kanal ";
+        output += in;
+        output += " wurde auf Kanal ";
+        output += out;
+        output += " geroutet!";
+        outputHeader = "Erfolgreich!";
     }
     else if(inputArr[0] == "setsteepfilter") {
         //===============================================================================

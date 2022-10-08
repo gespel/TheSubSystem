@@ -1,47 +1,25 @@
 ﻿  SubDSP.cpp
-  CommandParser.cpp
-  Main.cpp
-  MainComponent.cpp
-  BinaryData.cpp
-  include_juce_audio_basics.cpp
-  include_juce_audio_devices.cpp
-  include_juce_audio_formats.cpp
-  include_juce_audio_processors_ara.cpp
-  include_juce_audio_processors_lv2_libs.cpp
-  include_juce_audio_utils.cpp
-  include_juce_core.cpp
-  include_juce_data_structures.cpp
-  include_juce_dsp.cpp
-  include_juce_events.cpp
-  include_juce_graphics.cpp
-  include_juce_gui_extra.cpp
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\MainComponent.cpp(45,40): warning C4100: "samplesPerBlockExpected": Unreferenzierter formaler Parameter
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(17,103): warning C4458: Deklaration von "sampleRate" blendet Klassenmember aus
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.h(34,12): message : Siehe Deklaration von "SubDSP::sampleRate" (Quelldatei wird kompiliert ..\..\Source\SubDSP.cpp)
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(23,106): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(20,103): warning C4458: Deklaration von "sampleRate" blendet Klassenmember aus
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.h(35,12): message : Siehe Deklaration von "SubDSP::sampleRate"
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(26,106): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
           with
           [
               NumericType=float
           ]
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(28,118): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(31,118): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
           with
           [
               NumericType=float
           ]
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(33,107): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(36,107): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
           with
           [
               NumericType=float
           ]
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(38,119): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(41,119): warning C4244: "Argument": Konvertierung von "int" in "NumericType", möglicher Datenverlust
           with
           [
               NumericType=float
           ]
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\Main.cpp(18,42): warning C4100: "commandLine": Unreferenzierter formaler Parameter
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\Main.cpp(37,54): warning C4100: "commandLine": Unreferenzierter formaler Parameter
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\CommandParser.cpp(17,42): warning C4458: Deklaration von "dsp" blendet Klassenmember aus
-C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\CommandParser.h(21,13): message : Siehe Deklaration von "CommandParser::dsp" (Quelldatei wird kompiliert ..\..\Source\CommandParser.cpp)
-  include_juce_audio_processors.cpp
-  include_juce_gui_basics.cpp
+C:\Users\stenh\source\repos\gespel\TheSubSystem\Source\SubDSP.cpp(62,19): warning C4189: "outBuffer": Lokale Variable ist initialisiert aber nicht referenziert
   The SubSystem_App.vcxproj -> C:\Users\stenh\source\repos\gespel\TheSubSystem\Builds\VisualStudio2022\x64\Debug\App\The SubSystem.exe
