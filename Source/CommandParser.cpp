@@ -67,6 +67,9 @@ void CommandParser::parseCommandLine(juce::Label *inputText, juce::Label *output
         output += " gesetzt!";
         outputHeader = "Erfolgreich!";	
     }
+    else if (inputArr[0] == "route") {
+
+    }
     else if(inputArr[0] == "setsteepfilter") {
         //===============================================================================
         //setsteepfilter [channelNumber] [filterNumber] [frequency] [filterType];

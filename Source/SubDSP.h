@@ -32,6 +32,7 @@ private:
     int steepFilterAssignments[6][4]; //4 Filter for 6 Channels
     int gainAssignments[6];
     double sampleRate;
+    std::vector <std::vector<const float*>> routingtable;
 
     
 };
