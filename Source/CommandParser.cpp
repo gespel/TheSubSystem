@@ -69,7 +69,7 @@ void CommandParser::parseCommandLine(juce::Label *inputText, juce::Label *output
     }
     else if (inputArr[0] == "route") {
         //===============================================================================
-        //rout [inputChannel] [outputChannel];
+        //route [inputChannel] [outputChannel];
         //===============================================================================
         int in = atoi(inputArr[1].toStdString().c_str());
         int out = atoi(inputArr[2].toStdString().c_str());

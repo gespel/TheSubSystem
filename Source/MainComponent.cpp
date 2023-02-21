@@ -57,8 +57,10 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
     auto* device = deviceManager.getCurrentAudioDevice();
     auto activeInputChannels  = device->getActiveInputChannels();
     auto activeOutputChannels = device->getActiveOutputChannels();
-    
+    dsp.inputs.clear();
     dsp.loadNextAudioBuffer(&bufferToFill, currentSampleRate);
+    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(0, bufferToFill.startSample));
+    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(1, bufferToFill.startSample));
     dsp.process();
 }
 

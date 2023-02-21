@@ -25,6 +25,8 @@ public:
     void removeSteepFilter(int channelNumber, int filterNumber);
     void setGain(int channelNumber, int gain);
     void route(int inputChannel, int outputChannel);
+    void addInputChannel(int channelNumber, const float* channel);
+    std::vector <const float*> inputs;
 private:
     const juce::AudioSourceChannelInfo* currBuffer;
     juce::dsp::IIR::Filter<float> filterBank[16];
@@ -34,6 +36,7 @@ private:
     int gainAssignments[6];
     double sampleRate;
     std::vector <std::vector<const float*>> routingtable;
+    
 
     
 };

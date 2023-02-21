@@ -51,8 +51,17 @@ void SubDSP::removeSteepFilter(int channelNumber, int filterNumber) {
 void SubDSP::setGain(int channelNumber, int gain) {
     gainAssignments[channelNumber] = gain;
 }
+void SubDSP::addInputChannel(int channelNumber, const float* channel) {
+    while (channelNumber >= inputs.size()) {
+        //inputs.push_back(const float* x);
+    }
+}
 void SubDSP::route(int inputChannel, int outputChannel) {
-    this->routingtable[outputChannel].push_back(currBuffer->buffer->getReadPointer(inputChannel, currBuffer->startSample));
+    //this->routingtable[outputChannel].push_back(currBuffer->buffer->getReadPointer(inputChannel, currBuffer->startSample));
+    while (outputChannel >= routingtable.size()) {
+        routingtable.push_back(std::vector<const float*>());
+    }
+    routingtable[outputChannel].push_back(inputs[inputChannel]);
 }
 
 void SubDSP::process() {
@@ -61,9 +70,9 @@ void SubDSP::process() {
         for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
             auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
             std::vector<const float*> x = routingtable[i];
-            //for (int j = 0; j < x.size(); j++) {
-            //    outBuffer[sample] += x[j][sample];
-            //}
+            for (int j = 0; j < x.size(); j++) {
+                outBuffer[sample] += x[j][sample];
+            }
         }
         //======================= Filter Section =======================
         /*for (int filterNum = 0; filterNum < 16; filterNum++) {
