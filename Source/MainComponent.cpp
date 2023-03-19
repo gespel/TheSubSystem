@@ -13,26 +13,33 @@ MainComponent::MainComponent()
     output1Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output2Label.setText("Output Gain Channel 2: ", juce::dontSendNotification);
-    output2Text.setText(dsp.gainAssignments[1] + "", juce::dontSendNotification);
+    output2Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output2Text.setColour(juce::Label::textColourId, juce::Colours::black);
     
 
     output3Label.setText("Output Gain Channel 3: ", juce::dontSendNotification);
-    output3Text.setText(dsp.gainAssignments[2] + "", juce::dontSendNotification);
+    output3Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output3Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output4Label.setText("Output Gain Channel 4: ", juce::dontSendNotification);
-    output4Text.setText(dsp.gainAssignments[3] + "", juce::dontSendNotification);
+    output4Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output4Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output5Label.setText("Output Gain Channel 5: ", juce::dontSendNotification);
-    output5Text.setText(dsp.gainAssignments[4] + "", juce::dontSendNotification);
+    output5Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output5Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output6Label.setText("Output Gain Channel 6: ", juce::dontSendNotification);
-    output6Text.setText(dsp.gainAssignments[5] + "", juce::dontSendNotification);
+    output6Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output6Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output7Label.setText("Output Gain Channel 7: ", juce::dontSendNotification);
-    output7Text.setText(dsp.gainAssignments[6] + "", juce::dontSendNotification);
+    output7Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output7Text.setColour(juce::Label::textColourId, juce::Colours::black);
 
     output8Label.setText("Output Gain Channel 8: ", juce::dontSendNotification);
-    output8Text.setText(dsp.gainAssignments[7] + "", juce::dontSendNotification);
+    output8Label.setColour(juce::Label::textColourId, juce::Colours::black);
+    output8Text.setColour(juce::Label::textColourId, juce::Colours::black);
     addAndMakeVisible(output1Label);
     addAndMakeVisible(output1Text);
     addAndMakeVisible(output2Label);
@@ -151,14 +158,14 @@ MainComponent::MainComponent()
 }
 
 void MainComponent::updateUI() {
-    output1Text.setText(std::to_string(dsp.gainAssignments[0]) + " dB", juce::dontSendNotification);
-    output2Text.setText(std::to_string(dsp.gainAssignments[1]) + " dB", juce::dontSendNotification);
-    output3Text.setText(std::to_string(dsp.gainAssignments[2]) + " dB", juce::dontSendNotification);
-    output4Text.setText(std::to_string(dsp.gainAssignments[3]) + " dB", juce::dontSendNotification);
-    output5Text.setText(std::to_string(dsp.gainAssignments[4]) + " dB", juce::dontSendNotification);
-    output6Text.setText(std::to_string(dsp.gainAssignments[5]) + " dB", juce::dontSendNotification);
-    output7Text.setText(std::to_string(dsp.gainAssignments[6]) + " dB", juce::dontSendNotification);
-    output8Text.setText(std::to_string(dsp.gainAssignments[7]) + " dB", juce::dontSendNotification);
+    output1Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[0])) + " dB", juce::dontSendNotification);
+    output2Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[1])) + " dB", juce::dontSendNotification);
+    output3Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[2])) + " dB", juce::dontSendNotification);
+    output4Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[3])) + " dB", juce::dontSendNotification);
+    output5Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[4])) + " dB", juce::dontSendNotification);
+    output6Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[5])) + " dB", juce::dontSendNotification);
+    output7Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[6])) + " dB", juce::dontSendNotification);
+    output8Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[7])) + " dB", juce::dontSendNotification);
 }
 
 double MainComponent::linearTodB(double input) {
@@ -209,7 +216,7 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     cmdp.loadDSP(&dsp);
     currentSampleRate = sampleRate;
     for(int i = 0; i < 8; i++) {
-        dsp.setGain(i, 1);
+        dsp.setGain(i, 0.1);
     }
     juce::Logger::outputDebugString("\n=================================\nMade by Sten Heimbrodt [Audiotechnik Suboptimal]\n=================================\nEntwicklungsversion! Bugs sehr wahrscheinlich.\nAch ja, Nazis sind doof.\n=================================\n");
 }
@@ -248,6 +255,18 @@ void MainComponent::resized()
     output1Text.setBounds(200, 10, 100, 20);
     output2Label.setBounds(10, 30, 180, 20);
     output2Text.setBounds(200, 30, 100, 20);
+    output3Label.setBounds(10, 50, 180, 20);
+    output3Text.setBounds(200, 50, 100, 20);
+    output4Label.setBounds(10, 70, 180, 20);
+    output4Text.setBounds(200, 70, 100, 20);
+    output5Label.setBounds(10, 90, 180, 20);
+    output5Text.setBounds(200, 90, 100, 20);
+    output6Label.setBounds(10, 110, 180, 20);
+    output6Text.setBounds(200, 110, 100, 20);
+    output7Label.setBounds(10, 130, 180, 20);
+    output7Text.setBounds(200, 130, 100, 20);
+    output8Label.setBounds(10, 150, 180, 20);
+    output8Text.setBounds(200, 150, 100, 20);
 
     inputText.setBounds(100, 10, getWidth() - 110, 20);
     outputText.setBounds(5, 40, getWidth() - 15, 20);

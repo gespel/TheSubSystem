@@ -48,7 +48,7 @@ void SubDSP::removeFilter(int channelNumber, int filterNumber) {
 void SubDSP::removeSteepFilter(int channelNumber, int filterNumber) {
     steepFilterAssignments[channelNumber][filterNumber] = 0;
 }
-void SubDSP::setGain(int channelNumber, int gain) {
+void SubDSP::setGain(int channelNumber, double gain) {
     gainAssignments[channelNumber] = gain;
 }
 void SubDSP::setInputGain(int channelNumber, int gain) {
@@ -100,7 +100,9 @@ void SubDSP::process() {
         }*/
 
         //======================= Gain Section =======================
-        //outBufferL[sample] *= (float)gainAssignments[0];
-        //outBufferR[sample] *= (float)gainAssignments[1];
+        for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
+            auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
+            outBuffer[sample] *= gainAssignments[i];
+        }
     }
 }

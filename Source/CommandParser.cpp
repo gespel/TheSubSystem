@@ -153,14 +153,14 @@ void CommandParser::parseCommandLine(juce::Label *inputText, juce::Label *output
         //setgain [channelNumber] [gain];
         //===============================================================================
         int channelNumber = atoi(inputArr[1].toStdString().c_str());
-        int gain = atoi(inputArr[2].toStdString().c_str());
+        double gain = std::stod(inputArr[2].toStdString());
         //gainAssignments[channelNumber] = gain;
         dsp->setGain(channelNumber, gain);
         
         output = "Gain Kanal ";
         output += channelNumber;
         output += " wurde auf ";
-        output += gain;
+        output += String(std::to_string(gain));
         output += " gesetzt!";
         outputHeader = "Erfolgreich!";
     }

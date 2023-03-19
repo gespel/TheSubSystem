@@ -23,12 +23,12 @@ public:
     void setHighPassFilter(int channelNumber, int filterNumber, int freq);
     void removeFilter(int channelNumber, int filterNumber);
     void removeSteepFilter(int channelNumber, int filterNumber);
-    void setGain(int channelNumber, int gain);
+    void setGain(int channelNumber, double gain);
     void setInputGain(int channelNumber, int gain);
     void route(int inputChannel, int outputChannel);
     void addInputChannel(int channelNumber, const float* channel);
     std::vector <const float*> inputs;
-    int gainAssignments[8];
+    double gainAssignments[8];
 private:
     const juce::AudioSourceChannelInfo* currBuffer;
     juce::dsp::IIR::Filter<float> filterBank[16];
