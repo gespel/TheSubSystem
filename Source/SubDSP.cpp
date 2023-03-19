@@ -51,6 +51,9 @@ void SubDSP::removeSteepFilter(int channelNumber, int filterNumber) {
 void SubDSP::setGain(int channelNumber, int gain) {
     gainAssignments[channelNumber] = gain;
 }
+void SubDSP::setInputGain(int channelNumber, int gain) {
+    inputGainAssignments[channelNumber] = gain;
+}
 void SubDSP::addInputChannel(int channelNumber, const float* channel) {
     while (channelNumber >= inputs.size()) {
         //inputs.push_back(const float* x);
