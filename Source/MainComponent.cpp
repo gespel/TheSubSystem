@@ -213,6 +213,16 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 {
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    dsp.routingtable.push_back(std::vector<const float*>());
+    
+    
     cmdp.loadDSP(&dsp);
     currentSampleRate = sampleRate;
     for(int i = 0; i < 8; i++) {
@@ -227,9 +237,11 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
     auto activeInputChannels  = device->getActiveInputChannels();
     auto activeOutputChannels = device->getActiveOutputChannels();
     dsp.inputs.clear();
-    dsp.loadNextAudioBuffer(&bufferToFill, currentSampleRate);
     dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(0, bufferToFill.startSample));
     dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(1, bufferToFill.startSample));
+    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(2, bufferToFill.startSample));
+    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(3, bufferToFill.startSample));
+    dsp.loadNextAudioBuffer(&bufferToFill, currentSampleRate);
     dsp.process();
     this->updateUI();
 }

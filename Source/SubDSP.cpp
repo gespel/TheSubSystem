@@ -11,10 +11,7 @@
 #include "SubDSP.h"
 
 SubDSP::SubDSP() {
-    std::vector<const float*> left;
-    std::vector<const float*> right;
-    this->routingtable.push_back(left);
-    this->routingtable.push_back(right);
+
 }
 
 void SubDSP::loadNextAudioBuffer(const juce::AudioSourceChannelInfo* bufferToFill, double sampleRate) {
@@ -61,13 +58,17 @@ void SubDSP::addInputChannel(int channelNumber, const float* channel) {
 }
 void SubDSP::route(int inputChannel, int outputChannel) {
     //this->routingtable[outputChannel].push_back(currBuffer->buffer->getReadPointer(inputChannel, currBuffer->startSample));
-    while (outputChannel >= routingtable.size()) {
+    /*while (outputChannel >= routingtable.size()) {
         routingtable.push_back(std::vector<const float*>());
-    }
+    }*/
     routingtable[outputChannel].push_back(inputs[inputChannel]);
 }
 
 void SubDSP::process() {
+    /*std::cout << this->routingtable[0].size() << " ";
+    if(this->routingtable[0].size() > 0) {
+        std::cout << this->routingtable[0][0][10] << std::endl;
+    }*/
     for (int sample = 0; sample < currBuffer->numSamples; sample++) {
         //======================= Input Routing =======================
         for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
@@ -76,32 +77,27 @@ void SubDSP::process() {
             for (int j = 0; j < x.size(); j++) {
                 outBuffer[sample] += x[j][sample];
             }
+            /*if(x.size() > 0) {
+                outBuffer[sample] *= 1/x.size();
+            }*/
         }
-        //======================= Filter Section =======================
-        /*for (int filterNum = 0; filterNum < 16; filterNum++) {
-            if(filterAssignments[0][filterNum] == 1) {
-                outBufferL[sample] = filterBank[filterNum].processSample(outBufferL[sample]);
-            }
-            if(filterAssignments[1][filterNum] == 1) {
-                outBufferR[sample] = filterBank[filterNum].processSample(outBufferR[sample]);
-            }
-        }
-        for(int filterNum = 0; filterNum < 4; filterNum++) {
-            if(steepFilterAssignments[0][filterNum] == 1) {
-                for(int i = 0; i < 6; i++) {
-                    outBufferL[sample] = steepFilterBank[filterNum][i].processSample(outBufferL[sample]);
-                }
-            }
-            if(steepFilterAssignments[1][filterNum] == 1) {
-                for(int i = 0; i < 6; i++) {
-                    outBufferR[sample] = steepFilterBank[filterNum][i].processSample(outBufferR[sample]);
-                }
-            }
-        }*/
-
-        //======================= Gain Section =======================
+        //======================= Gain & Filter Section =======================
         for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
             auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
+            
+            for (int filterNum = 0; filterNum < 16; filterNum++) {
+                if(filterAssignments[i][filterNum] == 1) {
+                    outBuffer[sample] = filterBank[filterNum].processSample(outBuffer[sample]);
+                }
+            }
+            for(int filterNum = 0; filterNum < 4; filterNum++) {
+                if(steepFilterAssignments[i][filterNum] == 1) {
+                    for(int i = 0; i < 6; i++) {
+                        outBuffer[sample] = steepFilterBank[filterNum][i].processSample(outBuffer[sample]);
+                    }
+                }
+            }
+            
             outBuffer[sample] *= gainAssignments[i];
         }
     }

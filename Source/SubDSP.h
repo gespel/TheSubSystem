@@ -28,6 +28,7 @@ public:
     void route(int inputChannel, int outputChannel);
     void addInputChannel(int channelNumber, const float* channel);
     std::vector <const float*> inputs;
+    std::vector <std::vector<const float*>> routingtable;
     double gainAssignments[8];
 private:
     const juce::AudioSourceChannelInfo* currBuffer;
@@ -37,7 +38,7 @@ private:
     int steepFilterAssignments[6][4]; //4 Filter for 6 Channels
     int inputGainAssignments[4];
     double sampleRate;
-    std::vector <std::vector<const float*>> routingtable;
+    
     
 
     
