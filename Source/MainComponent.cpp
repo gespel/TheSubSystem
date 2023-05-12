@@ -11,6 +11,59 @@ MainComponent::MainComponent()
     //Logo = ImageCache::getFromMemory(BinaryData::LOGO_PNG, BinaryData::LOGO_PNGSize);
 
     //MAIN MENU
+    
+
+    output1MeterLabel.setText("Output Channel 1: ", juce::dontSendNotification);
+    output1MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output1MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output2MeterLabel.setText("Output Channel 2: ", juce::dontSendNotification);
+    output2MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output2MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output3MeterLabel.setText("Output Channel 3: ", juce::dontSendNotification);
+    output3MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output3MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output4MeterLabel.setText("Output Channel 4: ", juce::dontSendNotification);
+    output4MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output4MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output5MeterLabel.setText("Output Channel 5: ", juce::dontSendNotification);
+    output5MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output5MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output6MeterLabel.setText("Output Channel 6: ", juce::dontSendNotification);
+    output6MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output6MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output7MeterLabel.setText("Output Channel 7: ", juce::dontSendNotification);
+    output7MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output7MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output8MeterLabel.setText("Output Channel 8: ", juce::dontSendNotification);
+    output8MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output8MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+    
+    addAndMakeVisible(output1MeterLabel);
+    addAndMakeVisible(output1MeterText);
+    addAndMakeVisible(output2MeterLabel);
+    addAndMakeVisible(output2MeterText);
+    addAndMakeVisible(output3MeterLabel);
+    addAndMakeVisible(output3MeterText);
+    addAndMakeVisible(output4MeterLabel);
+    addAndMakeVisible(output4MeterText);
+    addAndMakeVisible(output5MeterLabel);
+    addAndMakeVisible(output5MeterText);
+    addAndMakeVisible(output6MeterLabel);
+    addAndMakeVisible(output6MeterText);
+    addAndMakeVisible(output7MeterLabel);
+    addAndMakeVisible(output7MeterText);
+    addAndMakeVisible(output8MeterLabel);
+    addAndMakeVisible(output8MeterText);
+    //========================
+
+    //ROUTING MENU
     output1Label.setText("Output Gain Channel 1: ", juce::dontSendNotification);
     output1Label.setColour(juce::Label::textColourId, juce::Colours::black);
     output1Text.setColour(juce::Label::textColourId, juce::Colours::black);
@@ -18,7 +71,7 @@ MainComponent::MainComponent()
     output2Label.setText("Output Gain Channel 2: ", juce::dontSendNotification);
     output2Label.setColour(juce::Label::textColourId, juce::Colours::black);
     output2Text.setColour(juce::Label::textColourId, juce::Colours::black);
-    
+
 
     output3Label.setText("Output Gain Channel 3: ", juce::dontSendNotification);
     output3Label.setColour(juce::Label::textColourId, juce::Colours::black);
@@ -43,11 +96,6 @@ MainComponent::MainComponent()
     output8Label.setText("Output Gain Channel 8: ", juce::dontSendNotification);
     output8Label.setColour(juce::Label::textColourId, juce::Colours::black);
     output8Text.setColour(juce::Label::textColourId, juce::Colours::black);
-
-    output1MeterLabel.setText("Output Channel 1: ", juce::dontSendNotification);
-    output1MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
-    output1MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
-    //output1Rect.setColour(juce::Colours::black);
     addAndMakeVisible(output1Label);
     addAndMakeVisible(output1Text);
     addAndMakeVisible(output2Label);
@@ -64,9 +112,6 @@ MainComponent::MainComponent()
     addAndMakeVisible(output7Text);
     addAndMakeVisible(output8Label);
     addAndMakeVisible(output8Text);
-    addAndMakeVisible(output1MeterLabel);
-    addAndMakeVisible(output1MeterText);
-    //========================
 
     //COMMANDLINE MENU
     addAndMakeVisible(inputLabel);
@@ -101,6 +146,29 @@ MainComponent::MainComponent()
     main.setColour(juce::Label::backgroundColourId, juce::Colours::darkblue);
     main.onClick = [this] {
         this->clearMenu();
+        output1MeterLabel.setVisible(true);
+        output1MeterText.setVisible(true);
+        output2MeterLabel.setVisible(true);
+        output2MeterText.setVisible(true);
+        output3MeterLabel.setVisible(true);
+        output3MeterText.setVisible(true);
+        output4MeterLabel.setVisible(true);
+        output4MeterText.setVisible(true);
+        output5MeterLabel.setVisible(true);
+        output5MeterText.setVisible(true);
+        output6MeterLabel.setVisible(true);
+        output6MeterText.setVisible(true);
+        output7MeterLabel.setVisible(true);
+        output7MeterText.setVisible(true);
+        output8MeterLabel.setVisible(true);
+        output8MeterText.setVisible(true);
+    };
+    addAndMakeVisible(main);
+
+    routing.setButtonText("Routing");
+    routing.setColour(juce::Label::backgroundColourId, juce::Colours::darkblue);
+    routing.onClick = [this] {
+        this->clearMenu();
         output1Label.setVisible(true);
         output1Text.setVisible(true);
         output2Label.setVisible(true);
@@ -117,15 +185,6 @@ MainComponent::MainComponent()
         output7Text.setVisible(true);
         output8Label.setVisible(true);
         output8Text.setVisible(true);
-        output1MeterLabel.setVisible(true);
-        output1MeterText.setVisible(true);
-    };
-    addAndMakeVisible(main);
-
-    routing.setButtonText("Routing");
-    routing.setColour(juce::Label::backgroundColourId, juce::Colours::darkblue);
-    routing.onClick = [this] {
-        this->clearMenu();
     };
     addAndMakeVisible(routing);
 
@@ -170,15 +229,20 @@ MainComponent::MainComponent()
 }
 
 void MainComponent::updateUI() {
-    output1Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[0])) + " dB", juce::dontSendNotification);
-    output2Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[1])) + " dB", juce::dontSendNotification);
-    output3Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[2])) + " dB", juce::dontSendNotification);
-    output4Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[3])) + " dB", juce::dontSendNotification);
-    output5Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[4])) + " dB", juce::dontSendNotification);
-    output6Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[5])) + " dB", juce::dontSendNotification);
-    output7Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[6])) + " dB", juce::dontSendNotification);
-    output8Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[7])) + " dB", juce::dontSendNotification);
-    output1MeterText.setText(std::to_string(this->linearTodB(std::abs(dsp.getFirstSamplesFromOutputChannels()[0]))) + " dB", juce::dontSendNotification);
+    this->uiUpdateStep++;
+    if (this->uiUpdateStep >= 10) {
+        this->uiUpdateStep = 0;
+        output1Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[0])) + " dB", juce::dontSendNotification);
+        output2Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[1])) + " dB", juce::dontSendNotification);
+        output3Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[2])) + " dB", juce::dontSendNotification);
+        output4Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[3])) + " dB", juce::dontSendNotification);
+        output5Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[4])) + " dB", juce::dontSendNotification);
+        output6Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[5])) + " dB", juce::dontSendNotification);
+        output7Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[6])) + " dB", juce::dontSendNotification);
+        output8Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[7])) + " dB", juce::dontSendNotification);
+        output1MeterText.setText(std::to_string(this->linearTodB(std::abs(dsp.getFirstSamplesFromOutputChannels()[0]))) + " dB", juce::dontSendNotification);
+        output2MeterText.setText(std::to_string(this->linearTodB(std::abs(dsp.getFirstSamplesFromOutputChannels()[1]))) + " dB", juce::dontSendNotification);
+    }
 }
 
 double MainComponent::linearTodB(double input) {
@@ -219,6 +283,20 @@ void MainComponent::clearMenu() {
     output8Text.setVisible(false);
     output1MeterLabel.setVisible(false);
     output1MeterText.setVisible(false);
+    output2MeterLabel.setVisible(false);
+    output2MeterText.setVisible(false);
+    output3MeterLabel.setVisible(false);
+    output3MeterText.setVisible(false);
+    output4MeterLabel.setVisible(false);
+    output4MeterText.setVisible(false);
+    output5MeterLabel.setVisible(false);
+    output5MeterText.setVisible(false);
+    output6MeterLabel.setVisible(false);
+    output6MeterText.setVisible(false);
+    output7MeterLabel.setVisible(false);
+    output7MeterText.setVisible(false);
+    output8MeterLabel.setVisible(false);
+    output8MeterText.setVisible(false);
 }
 MainComponent::~MainComponent()
 {
@@ -271,7 +349,7 @@ void MainComponent::paint (juce::Graphics& g)
 {
     g.fillAll (juce::Colours::orange);
     g.setColour(juce::Colours::green);
-    g.drawRect(this->output1Rect, 2);
+    g.drawRect(juce::Rectangle<int>(10, 220, 180 * (std::abs(dsp.getFirstSamplesFromOutputChannels()[0])), 20), 2);
     //g.drawFittedText("Made by Audiotechnik Suboptimal", 5, 200, 200, 100, Justification::bottomLeft, 10);
     //g.drawImageAt(Logo, 0, 0);
 }
@@ -279,6 +357,23 @@ void MainComponent::paint (juce::Graphics& g)
 void MainComponent::resized()
 {
     double scaling = 5.75;
+
+    output1MeterLabel.setBounds(10, 10, 180, 20);
+    output1MeterText.setBounds(200, 10, 100, 20);
+    output2MeterLabel.setBounds(10, 30, 180, 20);
+    output2MeterText.setBounds(200, 30, 100, 20);
+    output3MeterLabel.setBounds(10, 50, 180, 20);
+    output3MeterText.setBounds(200, 50, 100, 20);
+    output4MeterLabel.setBounds(10, 70, 180, 20);
+    output4MeterText.setBounds(200, 70, 100, 20);
+    output5MeterLabel.setBounds(10, 90, 180, 20);
+    output5MeterText.setBounds(200, 90, 100, 20);
+    output6MeterLabel.setBounds(10, 110, 180, 20);
+    output6MeterText.setBounds(200, 110, 100, 20);
+    output7MeterLabel.setBounds(10, 130, 180, 20);
+    output7MeterText.setBounds(200, 130, 100, 20);
+    output8MeterLabel.setBounds(10, 150, 180, 20);
+    output8MeterText.setBounds(200, 150, 100, 20);
 
     output1Label.setBounds(10, 10, 180, 20);
     output1Text.setBounds(200, 10, 100, 20);
@@ -296,8 +391,7 @@ void MainComponent::resized()
     output7Text.setBounds(200, 130, 100, 20);
     output8Label.setBounds(10, 150, 180, 20);
     output8Text.setBounds(200, 150, 100, 20);
-    output1MeterLabel.setBounds(10, 170, 180, 20);
-    output1MeterText.setBounds(200, 170, 100, 20);
+    
     output1Rect.setBounds(10, 220, 180*(std::abs(dsp.getFirstSamplesFromOutputChannels()[0])), 20);
 
     inputText.setBounds(100, 10, getWidth() - 110, 20);

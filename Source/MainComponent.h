@@ -53,6 +53,20 @@ private:
     juce::Label output8Text;    
     juce::Label output1MeterLabel;
     juce::Label output1MeterText;
+    juce::Label output2MeterLabel;
+    juce::Label output2MeterText;
+    juce::Label output3MeterLabel;
+    juce::Label output3MeterText;
+    juce::Label output4MeterLabel;
+    juce::Label output4MeterText;
+    juce::Label output5MeterLabel;
+    juce::Label output5MeterText;
+    juce::Label output6MeterLabel;
+    juce::Label output6MeterText;
+    juce::Label output7MeterLabel;
+    juce::Label output7MeterText;
+    juce::Label output8MeterLabel;
+    juce::Label output8MeterText;
     juce::Rectangle<int> output1Rect;
 
     juce::Image Logo;
@@ -74,5 +88,6 @@ private:
     //juce::dsp::IIR::Filter<float> filterBank[16];
     //int filterAssignments[6][16];
     double currentSampleRate;
+    int uiUpdateStep = 0;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
