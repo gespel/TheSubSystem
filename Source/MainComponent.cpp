@@ -1,6 +1,9 @@
 #include "MainComponent.h"
 #include <iostream>
 
+
+
+
 //==============================================================================
 MainComponent::MainComponent()
 {
@@ -40,6 +43,11 @@ MainComponent::MainComponent()
     output8Label.setText("Output Gain Channel 8: ", juce::dontSendNotification);
     output8Label.setColour(juce::Label::textColourId, juce::Colours::black);
     output8Text.setColour(juce::Label::textColourId, juce::Colours::black);
+
+    output1MeterLabel.setText("Output Channel 1: ", juce::dontSendNotification);
+    output1MeterLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    output1MeterText.setColour(juce::Label::textColourId, juce::Colours::black);
+    //output1Rect.setColour(juce::Colours::black);
     addAndMakeVisible(output1Label);
     addAndMakeVisible(output1Text);
     addAndMakeVisible(output2Label);
@@ -56,6 +64,8 @@ MainComponent::MainComponent()
     addAndMakeVisible(output7Text);
     addAndMakeVisible(output8Label);
     addAndMakeVisible(output8Text);
+    addAndMakeVisible(output1MeterLabel);
+    addAndMakeVisible(output1MeterText);
     //========================
 
     //COMMANDLINE MENU
@@ -107,6 +117,8 @@ MainComponent::MainComponent()
         output7Text.setVisible(true);
         output8Label.setVisible(true);
         output8Text.setVisible(true);
+        output1MeterLabel.setVisible(true);
+        output1MeterText.setVisible(true);
     };
     addAndMakeVisible(main);
 
@@ -166,6 +178,7 @@ void MainComponent::updateUI() {
     output6Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[5])) + " dB", juce::dontSendNotification);
     output7Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[6])) + " dB", juce::dontSendNotification);
     output8Text.setText(std::to_string(this->linearTodB(dsp.gainAssignments[7])) + " dB", juce::dontSendNotification);
+    output1MeterText.setText(std::to_string(this->linearTodB(std::abs(dsp.getFirstSamplesFromOutputChannels()[0]))) + " dB", juce::dontSendNotification);
 }
 
 double MainComponent::linearTodB(double input) {
@@ -204,6 +217,8 @@ void MainComponent::clearMenu() {
     output7Text.setVisible(false);
     output8Label.setVisible(false);
     output8Text.setVisible(false);
+    output1MeterLabel.setVisible(false);
+    output1MeterText.setVisible(false);
 }
 MainComponent::~MainComponent()
 {
@@ -238,9 +253,9 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
     auto activeOutputChannels = device->getActiveOutputChannels();
     dsp.inputs.clear();
     dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(0, bufferToFill.startSample));
-    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(1, bufferToFill.startSample));
-    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(2, bufferToFill.startSample));
-    dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(3, bufferToFill.startSample));
+    //dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(1, bufferToFill.startSample));
+    //dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(2, bufferToFill.startSample));
+    //dsp.inputs.push_back(bufferToFill.buffer->getReadPointer(3, bufferToFill.startSample));
     dsp.loadNextAudioBuffer(&bufferToFill, currentSampleRate);
     dsp.process();
     this->updateUI();
@@ -255,6 +270,8 @@ void MainComponent::releaseResources()
 void MainComponent::paint (juce::Graphics& g)
 {
     g.fillAll (juce::Colours::orange);
+    g.setColour(juce::Colours::green);
+    g.drawRect(this->output1Rect, 2);
     //g.drawFittedText("Made by Audiotechnik Suboptimal", 5, 200, 200, 100, Justification::bottomLeft, 10);
     //g.drawImageAt(Logo, 0, 0);
 }
@@ -279,6 +296,9 @@ void MainComponent::resized()
     output7Text.setBounds(200, 130, 100, 20);
     output8Label.setBounds(10, 150, 180, 20);
     output8Text.setBounds(200, 150, 100, 20);
+    output1MeterLabel.setBounds(10, 170, 180, 20);
+    output1MeterText.setBounds(200, 170, 100, 20);
+    output1Rect.setBounds(10, 220, 180*(std::abs(dsp.getFirstSamplesFromOutputChannels()[0])), 20);
 
     inputText.setBounds(100, 10, getWidth() - 110, 20);
     outputText.setBounds(5, 40, getWidth() - 15, 20);

@@ -51,6 +51,9 @@ private:
     juce::Label output7Text;
     juce::Label output8Label;
     juce::Label output8Text;    
+    juce::Label output1MeterLabel;
+    juce::Label output1MeterText;
+    juce::Rectangle<int> output1Rect;
 
     juce::Image Logo;
     //int gainAssignments[6];

@@ -11,7 +11,8 @@
 #include "SubDSP.h"
 
 SubDSP::SubDSP() {
-
+    this->firstSamples.push_back(0.f);
+    this->firstSamples.push_back(0.f);
 }
 
 void SubDSP::loadNextAudioBuffer(const juce::AudioSourceChannelInfo* bufferToFill, double sampleRate) {
@@ -56,6 +57,9 @@ void SubDSP::addInputChannel(int channelNumber, const float* channel) {
         //inputs.push_back(const float* x);
     }
 }
+std::vector<float> SubDSP::getFirstSamplesFromOutputChannels() {
+    return this->firstSamples;
+}
 void SubDSP::route(int inputChannel, int outputChannel) {
     //this->routingtable[outputChannel].push_back(currBuffer->buffer->getReadPointer(inputChannel, currBuffer->startSample));
     /*while (outputChannel >= routingtable.size()) {
@@ -71,7 +75,7 @@ void SubDSP::process() {
     }*/
     for (int sample = 0; sample < currBuffer->numSamples; sample++) {
         //======================= Input Routing =======================
-        for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
+        for (int i = 0; i < 2; i++) { //iterates over outputchannels
             auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
             std::vector<const float*> x = routingtable[i];
             for (int j = 0; j < x.size(); j++) {
@@ -82,7 +86,7 @@ void SubDSP::process() {
             }*/
         }
         //======================= Gain & Filter Section =======================
-        for (int i = 0; i < this->routingtable.size(); i++) { //iterates over outputchannels
+        for (int i = 0; i < 2; i++) { //iterates over outputchannels
             auto* outBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
             
             for (int filterNum = 0; filterNum < 16; filterNum++) {
@@ -101,4 +105,10 @@ void SubDSP::process() {
             outBuffer[sample] *= gainAssignments[i];
         }
     }
+
+    for (int i = 0; i < 2; i++) {
+        auto* measureBuffer = currBuffer->buffer->getWritePointer(i, currBuffer->startSample);
+        this->firstSamples[i] = measureBuffer[0];
+    }
+    
 }

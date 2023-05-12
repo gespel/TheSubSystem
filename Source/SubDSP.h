@@ -27,10 +27,12 @@ public:
     void setInputGain(int channelNumber, int gain);
     void route(int inputChannel, int outputChannel);
     void addInputChannel(int channelNumber, const float* channel);
+    std::vector <float> getFirstSamplesFromOutputChannels();
     std::vector <const float*> inputs;
     std::vector <std::vector<const float*>> routingtable;
     double gainAssignments[8];
 private:
+    std::vector<float> firstSamples;
     const juce::AudioSourceChannelInfo* currBuffer;
     juce::dsp::IIR::Filter<float> filterBank[16];
     juce::dsp::IIR::Filter<float> steepFilterBank[4][6];
